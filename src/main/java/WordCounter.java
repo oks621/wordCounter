@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.*;
 
 public class WordCounter {
+
     public void writeFile() {
         File file = new File("file.txt");
 
@@ -17,7 +18,7 @@ public class WordCounter {
         }
     }
 
-    public void counterWord() {
+    public String[] readFile() {
         StringBuilder sb = new StringBuilder();
 
         try {
@@ -32,9 +33,15 @@ public class WordCounter {
 
         String line1 = sb.toString();
         String[] array = line1.split(" ");
+        return array;
+    }
+
+    public Map<String, Integer> sortWords() {
+
+        String[] array1 = readFile();
         Map<String, Integer> words = new HashMap<>();
 
-        for (String string : array) {
+        for (String string : array1) {
             if (words.containsKey(string))
                 words.put(string, words.get(string) + 1);
             else {
@@ -45,7 +52,14 @@ public class WordCounter {
 
         Map<String, Integer> newMap = new TreeMap<>(comparator);
         newMap.putAll(words);
-        for (Map.Entry<String, Integer> map : newMap.entrySet()) {
+
+        return newMap;
+    }
+
+    public void printWords() {
+        Map<String, Integer> newMap1 = sortWords();
+
+        for (Map.Entry<String, Integer> map : newMap1.entrySet()) {
             String key = map.getKey();
             Integer value = map.getValue();
 
