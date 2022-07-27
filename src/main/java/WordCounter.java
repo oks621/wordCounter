@@ -10,7 +10,7 @@ public class WordCounter {
 
         try (FileWriter writer = new FileWriter(file)) {
             String text = "the day is sunny the the\n" +
-                    "the sunny is is";
+                    "the sunny is is is is";
             writer.write(text);
             writer.flush();
         } catch (IOException e) {
@@ -18,7 +18,7 @@ public class WordCounter {
         }
     }
 
-    public String[] readFile() {
+    public List<String> readFile() {
         StringBuilder sb = new StringBuilder();
 
         try {
@@ -32,16 +32,15 @@ public class WordCounter {
         }
 
         String line1 = sb.toString();
-        String[] array = line1.split(" ");
+      List<String> array = List.of(line1.split(" "));
         return array;
     }
 
     public Map<String, Integer> sortWords() {
 
-        String[] array1 = readFile();
-        Map<String, Integer> words = new HashMap<>();
+        Map<String, Integer> words = new TreeMap<>();
 
-        for (String string : array1) {
+        for (String string : readFile()) {
             if (words.containsKey(string))
                 words.put(string, words.get(string) + 1);
             else {
@@ -57,9 +56,8 @@ public class WordCounter {
     }
 
     public void printWords() {
-        Map<String, Integer> newMap1 = sortWords();
 
-        for (Map.Entry<String, Integer> map : newMap1.entrySet()) {
+        for (Map.Entry<String, Integer> map : sortWords().entrySet()) {
             String key = map.getKey();
             Integer value = map.getValue();
 

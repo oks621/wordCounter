@@ -13,7 +13,7 @@ class MyComparator implements Comparator<Object> {
 
     public int compare(Object o1, Object o2) {
 
-        if (map.get(o2) == map.get(o1))
+        if (map.get(o2).equals( map.get(o1)))
             return ((String) o1).compareTo((String) o2);
         else
             return (map.get(o2)).compareTo(
