@@ -5,7 +5,8 @@ public class WordCounters {
        WordCounter test=new WordCounter();
        test.writeFile();
        test.readFile();
-       test.sortWords();
+      test.sortWords();
        test.printWords();
+
     }
 }
