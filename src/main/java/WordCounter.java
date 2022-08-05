@@ -2,23 +2,16 @@ package main.java;
 
 import java.io.*;
 import java.util.*;
-import java.util.regex.Pattern;
 
-public class WordCounter  {
-  private   List list=new ArrayList<>();
 
-    @Override
-    public String toString() {
-        return  sortedMap.keySet() +" "+sortedMap.values()
-               ;
-    }
+public class WordCounter {
+    private List list = new ArrayList<>();
 
-    private Map<String,Integer> sortedMap=new HashMap<>();
     public void writeFile() {
         File file = new File("file.txt");
 
         try (FileWriter writer = new FileWriter(file)) {
-            String text = "the day is sunny the the\n" +"the day is sunny the the\n"+
+            String text = "the day is sunny the the\n" + "the day is sunny the the\n" +
                     "the sunny is is is is";
             writer.write(text);
             writer.flush();
@@ -41,11 +34,12 @@ public class WordCounter  {
         }
 
         String line1 = sb.toString();
-   list = List.of(line1.split(" "));
+        list = List.of(line1.split(" "));
     }
 
     public void sortWords() {
-        for (Object list1:list) {
+        Map<String, Integer> sortedMap = new HashMap<>();
+        for (Object list1 : list) {
             if (sortedMap.containsKey(list1))
                 sortedMap.put(String.valueOf(list1), sortedMap.get(list1) + 1);
             else {
@@ -53,23 +47,20 @@ public class WordCounter  {
             }
         }
         list = new ArrayList(sortedMap.entrySet());
-        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>()
-        {
+        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
             @Override
-            public int compare(Map.Entry<String, Integer> a, Map.Entry<String, Integer> b)
-            {
+            public int compare(Map.Entry<String, Integer> a, Map.Entry<String, Integer> b) {
                 return b.getValue() - a.getValue();
             }
         });
-        }
+    }
 
     public void printWords() {
-        for (Object word:list) {
-            String string= String.valueOf(word);
-            String string1=  string.replace("="," ") ;
+        for (Object word : list) {
+            String string = String.valueOf(word);
+            String string1 = string.replace("=", " ");
             System.out.println(string1);
         }
-
-
-    }}
+    }
+}
 
