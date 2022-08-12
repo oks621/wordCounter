@@ -5,14 +5,14 @@ import java.util.*;
 
 
 public class WordCounter {
-    private List list = new ArrayList<>();
 
-    public void writeFile() {
+    private List<String> list = new ArrayList<>();
+
+    public void writeFile(String text) {
         File file = new File("file.txt");
 
         try (FileWriter writer = new FileWriter(file)) {
-            String text = "the day is sunny the the\n" + "the day is sunny the the\n" +
-                    "the sunny is is is is";
+
             writer.write(text);
             writer.flush();
         } catch (IOException e) {
@@ -20,7 +20,7 @@ public class WordCounter {
         }
     }
 
-    public void readFile() {
+    public List<String> readFile() {
         StringBuilder sb = new StringBuilder();
 
         try {
@@ -35,31 +35,19 @@ public class WordCounter {
 
         String line1 = sb.toString();
         list = List.of(line1.split(" "));
+        return list;
+
     }
 
-    public void sortWords() {
-        Map<String, Integer> sortedMap = new HashMap<>();
-        for (Object list1 : list) {
-            if (sortedMap.containsKey(list1))
-                sortedMap.put(String.valueOf(list1), sortedMap.get(list1) + 1);
-            else {
-                sortedMap.put(String.valueOf(list1), 1);
-            }
-        }
-        list = new ArrayList(sortedMap.entrySet());
-        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
-            @Override
-            public int compare(Map.Entry<String, Integer> a, Map.Entry<String, Integer> b) {
-                return b.getValue() - a.getValue();
-            }
-        });
+    public void sortWords(List<String> list) {
+        Set<String> distinct = new HashSet<>(list);
+        printWords(distinct);
+
     }
 
-    public void printWords() {
-        for (Object word : list) {
-            String string = String.valueOf(word);
-            String string1 = string.replace("=", " ");
-            System.out.println(string1);
+    private void printWords(Set<String> distinct) {
+        for (String s : distinct) {
+            System.out.println(s + " " + Collections.frequency(list, s));
         }
     }
 }
